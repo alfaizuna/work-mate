@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# AGIT WorkMate - Personal Digital Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![AGIT Logo](public/agit-logo.png)
 
-## Available Scripts
+AGIT WorkMate adalah aplikasi web internal yang berfungsi sebagai "rekan kerja digital" untuk setiap karyawan di AGIT. Proyek ini bertujuan untuk meningkatkan produktivitas harian dengan menyediakan asisten AI yang membantu dalam manajemen waktu, otomatisasi tugas, pencarian informasi, dan mendukung kerja hybrid.
 
-In the project directory, you can run:
+## ✨ Fitur Utama
 
-### `npm start`
+Aplikasi ini mencakup beberapa fitur utama yang dirancang untuk membantu produktivitas Anda:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*   **🔐 Otentikasi Pengguna**: Sistem pendaftaran dan login yang aman untuk menjaga data Anda tetap personal.
+*   **📊 Dashboard Interaktif**:
+    *   **Work Assistant Prompt**: Langsung ajukan pertanyaan dari dashboard.
+    *   **Prioritas & Jadwal**: Lihat tugas mendesak dan jadwal mendatang dalam satu tampilan.
+    *   **Ringkasan Aktivitas**: Pantau jumlah tugas selesai dan meeting harian.
+*   **🗓️ Kalender Cerdas**:
+    *   Kelola jadwal meeting dan acara Anda dengan fitur CRUD (Create, Read, Update, Delete).
+    *   Tampilan kalender visual dengan penanda untuk tanggal yang memiliki acara.
+*   **✅ Manajemen Tugas**:
+    *   Atur daftar tugas pribadi dan pekerjaan Anda.
+    *   Lengkapi dengan fitur CRUD dan status penyelesaian.
+*   **🧠 AI Summary Generator (Simulasi)**:
+    *   Tempelkan transkrip rapat dan dapatkan ringkasan poin-poin penting, tindak lanjut, dan keputusan secara otomatis.
+*   **🔍 Quick Search Internal (Simulasi)**:
+    *   Cari dokumen, kontak, atau tools internal dari satu search bar universal di header.
+*   **🔔 Smart Reminder**:
+    *   Dapatkan notifikasi otomatis untuk acara yang akan datang atau tugas yang mendekati deadline.
+*   **📈 Daily Focus Report**:
+    *   Lihat laporan harian mengenai tugas yang selesai, estimasi waktu kerja, dan dapatkan saran efisiensi.
+*   **🤖 Chat Assistant (Work Assistant)**:
+    *   Tanyakan berbagai hal terkait pekerjaan, seperti PIC proyek atau deadline, dan dapatkan jawaban instan.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Teknologi yang Digunakan
 
-### `npm test`
+*   **Frontend**: React.js
+*   **Routing**: React Router
+*   **Styling**: CSS Murni (dengan pendekatan modern)
+*   **State Management**: React Hooks (useState, useEffect)
+*   **Penyimpanan Lokal**: `localStorage` dan `sessionStorage` untuk simulasi database dan sesi.
+*   **Library Pendukung**:
+    *   `react-icons` untuk ikon.
+    *   `react-calendar` untuk tampilan kalender.
+    *   `react-toastify` untuk notifikasi.
+    *   `sweetalert2` untuk alert interaktif.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Cara Menjalankan Proyek
 
-### `npm run build`
+Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah berikut:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  **Clone repository ini:**
+    ```bash
+    git clone git@github.com:alfaizuna/work-mate.git
+    cd work-mate
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2.  **Install semua dependency:**
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3.  **Jalankan aplikasi:**
+    ```bash
+    npm start
+    ```
+    Aplikasi akan berjalan di `http://localhost:3000`.
 
-### `npm run eject`
+## 🔮 Rencana Pengembangan
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+*   Integrasi backend dengan database (misalnya, PostgreSQL, MongoDB).
+*   Menghubungkan fitur ke API sesungguhnya:
+    *   **Microsoft Graph API** untuk Kalender dan Kontak.
+    *   **Jira/Asana API** untuk Task List.
+    *   **OpenAI GPT-4o API** atau **Azure AI Services** untuk Summary Generator dan Work Assistant.
+    *   **ElasticSearch/Algolia** untuk Quick Search.
+*   Meningkatkan keamanan otentikasi dengan JWT (JSON Web Tokens).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+Dibuat dengan ❤️ untuk inovasi di AGIT.

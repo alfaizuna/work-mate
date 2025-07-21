@@ -1,13 +1,672 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: #f7f9fb;
+  color: #222;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.calendar-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.sub-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #2a5d9f;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background: #f4f7fa;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: 0 4px 16px rgba(42,93,159,0.08);
+}
+.event-card .card-title {
+  font-weight: 600;
+  color: #2a5d9f;
+}
+.task-card .card-title {
+  font-weight: 600;
+  color: #1b7c3a;
+}
+.card-time, .card-location, .card-deadline, .card-status {
+  font-size: 0.97rem;
+  color: #555;
+}
+.card-status span {
+  font-weight: 600;
+  color: #e67e22;
+}
+.task-card.done .card-status span {
+  color: #1b7c3a;
+}
+.empty {
+  color: #aaa;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+/* Tambahan style untuk header dan dashboard */
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e5eaf1;
+  box-shadow: 0 2px 8px rgba(42,93,159,0.03);
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.dashboard-card {
+  min-height: 180px;
+}
+
+.summary-list, .priority-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.summary-value {
+  font-weight: 700;
+  color: #2a5d9f;
+  margin-right: 0.5rem;
+}
+.priority-task {
+  font-weight: 500;
+  color: #1b7c3a;
+  margin-right: 0.7rem;
+}
+.priority-due {
+  font-size: 0.95rem;
+  color: #e67e22;
+}
+
+.add-btn {
+  background: #2a5d9f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-btn:hover {
+  background: #17406a;
+}
+
+.crud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 1rem 0;
+  background: #f7f9fb;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.crud-form input, .crud-form select {
+  padding: 8px 10px;
+  border: 1px solid #d0d7e2;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.form-actions {
+  display: flex;
+  gap: 0.7rem;
+}
+.form-actions button {
+  background: #2a5d9f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-actions button:hover {
+  background: #17406a;
+}
+.form-actions .danger {
+  background: #e74c3c;
+}
+.form-actions .danger:hover {
+  background: #b93222;
+}
+
+.crud-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.crud-actions button {
+  background: #eaf1fb;
+  color: #2a5d9f;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-size: 0.97rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.crud-actions button:hover {
+  background: #d0d7e2;
+}
+.crud-actions .danger {
+  background: #fbeaea;
+  color: #e74c3c;
+}
+.crud-actions .danger:hover {
+  background: #f5c6c6;
+}
+
+@media (max-width: 700px) {
+  .calendar-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .calendar-container {
+    padding: 1rem;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .dashboard-container {
+    padding: 1rem;
+  }
+}
+
+.react-calendar__tile--active:enabled:focus {
+  background: #17406a;
+}
+
+/* Style untuk penanda event di kalender */
+.day-with-event {
+  position: relative;
+}
+.day-with-event abbr {
+  /* optional: make the number pop more */
+  font-weight: 600;
+}
+.day-with-event::after {
+  content: '';
+  position: absolute;
+  bottom: 8px; /* adjust position */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+}
+.react-calendar__tile--active.day-with-event::after {
+  background-color: #fff;
+}
+.react-calendar__tile--now.day-with-event::after {
+  background-color: #e74c3c;
+}
+
+/* Style untuk Quick Search */
+.search-wrapper {
+  position: relative;
+  width: 350px;
+}
+.search-input {
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 1rem;
+  border: 1px solid #d0d7e2;
+  border-radius: 8px;
+  background: #f7f9fb;
+  transition: all 0.2s;
+}
+.search-input:focus {
+  outline: none;
+  border-color: #2a5d9f;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(42,93,159,0.1);
+}
+.search-results {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border: 1px solid #e5eaf1;
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.search-result-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.search-result-item:last-child {
+  border-bottom: none;
+}
+.search-result-item:hover {
+  background: #f4f7fa;
+}
+.result-type {
+  background: #eaf1fb;
+  color: #2a5d9f;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.result-title {
+  font-weight: 500;
+}
+
+/* Style untuk halaman Summary */
+.summary-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.transcript-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #d0d7e2;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* agar padding tidak menambah lebar */
+}
+.summary-btn {
+  background: #1b7c3a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.summary-btn:hover {
+  background: #115726;
+}
+.summary-btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+.summary-result {
+  background-color: #f4f7fa;
+}
+.summary-result h4 {
+  font-weight: 600;
+  color: #2a5d9f;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.summary-result ul {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+/* Tanggal di luar bulan aktif */
+
+/* Style untuk halaman Laporan */
+.report-container {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.report-task-list, .suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.suggestions-list li {
+  line-height: 1.5;
+}
+.chart-container {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+.chart-bar {
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.chart-bar.focus { background-color: #2a5d9f; }
+.chart-bar.meetings { background-color: #e67e22; }
+.chart-bar.other { background-color: #95a5a6; }
+.chart-legend {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.chart-legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.chart-legend .dot.focus { background-color: #2a5d9f; }
+.chart-legend .dot.meetings { background-color: #e67e22; }
+.chart-legend .dot.other { background-color: #95a5a6; }
+
+/* Style untuk halaman WorkBot */
+.workbot-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.chat-box {
+  background: #f7f9fb;
+  border-radius: 12px;
+  min-height: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(42,93,159,0.03);
+}
+.chat-bubble {
+  max-width: 80%;
+  padding: 0.8rem 1.2rem;
+  border-radius: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.chat-bubble.user {
+  align-self: flex-end;
+  background: #eaf1fb;
+  color: #2a5d9f;
+}
+.chat-bubble.bot {
+  align-self: flex-start;
+  background: #fff;
+  color: #222;
+  border: 1px solid #e5eaf1;
+}
+.chat-input-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.chat-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d0d7e2;
+  font-size: 1rem;
+  resize: none;
+  min-height: 44px;
+  max-height: 100px;
+}
+
+/* Style untuk Assistant Prompt di Dashboard */
+.assistant-prompt-section {
+  text-align: center;
+  padding: 2rem 0;
+  margin-bottom: 1rem;
+}
+.assistant-prompt-title {
+  color: #2a5d9f;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.assistant-prompt-input {
+  width: 100%;
+  max-width: 580px;
+  padding: 1rem 1.8rem;
+  font-size: 1.1rem;
+  border-radius: 50px; /* Sudut sangat bulat */
+  border: 1px solid #dce1e7;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+  text-align: left; /* Teks placeholder di kiri */
+}
+.assistant-prompt-input::placeholder {
+  color: #888;
+}
+.assistant-prompt-input:focus {
+  outline: none;
+  border-color: #2a5d9f;
+  box-shadow: 0 4px 20px rgba(42,93,159,0.12);
+}
+
+/* Gaya Baru untuk Dashboard */
+.dashboard-grid-new {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dashboard-grid-new .card .sub-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.2rem;
+  color: #2a5d9f;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eaf1fb;
+  padding-bottom: 0.8rem;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+.item-due, .item-count {
+  font-weight: 500;
+  color: #555;
+  background-color: #f4f7fa;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.item-count {
+  font-weight: 600;
+  color: #2a5d9f;
+}
+.dashboard-grid-new .card .empty {
+  padding: 1rem 0;
+}
+
+/* Menghapus gaya lama yang tidak terpakai */
+.dashboard-grid { display: none; }
+.dashboard-card { display: none; }
+.summary-list { display: none; }
+.priority-list { display: none; }
+
+/* Style untuk Halaman Login/Register */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f9fb;
+}
+.auth-card {
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+.auth-logo {
+  height: 65px; /* Sedikit diperbesar */
+  width: auto;  /* Menjaga rasio aspek */
+  margin-bottom: 1.5rem;
+}
+.auth-card h2 {
+  font-size: 1.8rem;
+  color: #2a5d9f;
+  margin-bottom: 0.5rem;
+}
+.auth-card p {
+  color: #555;
+  margin-bottom: 2rem;
+}
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.auth-card input {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1px solid #d0d7e2;
+  border-radius: 8px;
+}
+.auth-button {
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  background-color: #2a5d9f;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+.auth-button:hover {
+  background-color: #17406a;
+}
+.auth-error {
+  background-color: #fbeaea;
+  color: #e74c3c;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.auth-switch {
+  margin-top: 2rem;
+  color: #555;
+}
+.auth-switch a {
+  color: #2a5d9f;
+  font-weight: 500;
+  text-decoration: none;
+}
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Style untuk User Menu di Header */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid #e5eaf1;
+}
+.user-menu span {
+  font-weight: 500;
+  color: #555;
+}
+.logout-btn {
+  background-color: #fbeaea;
+  color: #e74c3c;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logout-btn:hover {
+  background-color: #f5c6c6;
+  color: #b93222;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { askWorkBot } from '../services/workbotService';
 import '../index.css';
@@ -13,7 +13,7 @@ const WorkBot = () => {
   const location = useLocation();
   const initialQuery = useRef(location.state?.query);
 
-  const handleSend = async (queryOverride) => {
+  const handleSend = useCallback(async (queryOverride) => {
     const query = queryOverride || input;
     if (!query.trim()) return;
 
@@ -27,14 +27,14 @@ const WorkBot = () => {
     const botReply = await askWorkBot(query);
     setMessages(msgs => [...msgs, { from: 'bot', text: botReply }]);
     setLoading(false);
-  };
+  }, [input]);
   
   useEffect(() => {
     if (initialQuery.current) {
       handleSend(initialQuery.current);
       initialQuery.current = null; // Hapus setelah digunakan
     }
-  }, []);
+  }, [handleSend]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });

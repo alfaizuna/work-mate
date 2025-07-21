@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../services/storageService';
-import { FaTasks, FaCalendarAlt, FaChartBar } from 'react-icons/fa';
+import { FaTasks, FaCalendarAlt, FaChartBar, FaUmbrellaBeach, FaBookOpen } from 'react-icons/fa';
+import { FiPower } from 'react-icons/fi';
 import '../index.css';
 
 const Dashboard = () => {
@@ -10,6 +11,10 @@ const Dashboard = () => {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [priorityTasks, setPriorityTasks] = useState([]);
   const [activitySummary, setActivitySummary] = useState({ completed: 0, meetings: 0 });
+
+  // Simulasi data iServe
+  const sisaCuti = 7; // hari
+  const learningHour = 40; // persen
 
   useEffect(() => {
     // Ambil Jadwal Mendatang
@@ -62,6 +67,42 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-grid-new">
+        {/* Info Cuti dari iServe */}
+        <div className="card">
+          <h3 className="sub-title" style={{ color: '#b3125c' }}><FaUmbrellaBeach /> Info Cuti (iServe)</h3>
+          <div className="card-content">
+            <div className="item-row">
+              <span>Sisa Cuti Tahunan</span>
+              <span className="item-count" style={{ color: '#b3125c' }}>{sisaCuti} hari</span>
+            </div>
+            <a href="https://iserveu.ag-it.com/#/bpi/leave/request/view" target="_blank" rel="noopener noreferrer" className="iserve-link">Lihat detail di iServe</a>
+          </div>
+        </div>
+
+        {/* Shortcut Serve On/Off */}
+        <div className="card iserve-shortcut-card">
+          <a
+            href="https://iserveu.ag-it.com/#/attendance/serveactivity/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="iserve-shortcut-btn"
+          >
+            <FiPower size={22} style={{ marginRight: 10 }} /> Serve On/Off (iServe)
+          </a>
+        </div>
+
+        {/* Learning Hour dari iServe */}
+        <div className="card">
+          <h3 className="sub-title" style={{ color: '#b3125c' }}><FaBookOpen /> Learning Hour (iServe)</h3>
+          <div className="card-content">
+            <div className="learning-hour-bar">
+              <div className="learning-hour-fill" style={{ width: `${learningHour}%` }} />
+              <span className="learning-hour-label">{learningHour}%</span>
+            </div>
+            <a href="https://iserveu.ag-it.com/#/learning/hours/history" target="_blank" rel="noopener noreferrer" className="iserve-link">Lihat detail di iServe</a>
+          </div>
+        </div>
+
         {/* Prioritas Tugas */}
         <div className="card">
           <h3 className="sub-title"><FaTasks /> Prioritas Hari Ini</h3>

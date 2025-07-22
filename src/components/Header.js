@@ -46,8 +46,8 @@ const Header = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const handleDropdown = () => setDropdownOpen((v) => !v);
-  const closeDropdown = () => setDropdownOpen(false);
+  const handleDropdownOpen = () => setDropdownOpen(true);
+  const handleDropdownClose = () => setDropdownOpen(false);
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -75,7 +75,7 @@ const Header = () => {
 
   useEffect(() => {
     // Tutup dropdown saat pindah halaman
-    closeDropdown();
+    handleDropdownClose();
     // eslint-disable-next-line
   }, [location]);
 
@@ -127,16 +127,20 @@ const Header = () => {
       <nav style={navStyle} className="main-nav">
         <Link to="/" style={{ ...linkStyle, ...(location.pathname === '/' ? activeStyle : {}) }}>Dashboard</Link>
         <Link to="/workbot" style={{ ...linkStyle, ...(location.pathname === '/workbot' ? activeStyle : {}) }}>Work Assistant</Link>
-        <div className="dropdown" onMouseLeave={closeDropdown}>
-          <button className="dropdown-btn" onClick={handleDropdown} aria-haspopup="true" aria-expanded={dropdownOpen}>
+        <div
+          className="dropdown"
+          onMouseEnter={handleDropdownOpen}
+          onMouseLeave={handleDropdownClose}
+        >
+          <button className="dropdown-btn" aria-haspopup="true" aria-expanded={dropdownOpen}>
             Menu <FiChevronDown style={{ marginLeft: 4 }} />
           </button>
           {dropdownOpen && (
             <div className="dropdown-menu">
-              <Link to="/calendar" className="dropdown-item" onClick={closeDropdown}>Kalender</Link>
-              <Link to="/task" className="dropdown-item" onClick={closeDropdown}>Task</Link>
-              <Link to="/summary" className="dropdown-item" onClick={closeDropdown}>Summary</Link>
-              <Link to="/report" className="dropdown-item" onClick={closeDropdown}>Laporan</Link>
+              <Link to="/calendar" className="dropdown-item" onClick={handleDropdownClose}>Kalender</Link>
+              <Link to="/task" className="dropdown-item" onClick={handleDropdownClose}>Task</Link>
+              <Link to="/summary" className="dropdown-item" onClick={handleDropdownClose}>Summary</Link>
+              <Link to="/report" className="dropdown-item" onClick={handleDropdownClose}>Laporan</Link>
             </div>
           )}
         </div>
